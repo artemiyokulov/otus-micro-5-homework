@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: otus-homework-5
+  name: otus-homework-5
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: otus-homework-5
+  template:
+    metadata:
+      labels:
+        app: otus-homework-5
+    spec:
+      containers:
+      - image: arttsgnet/otus-homework-5
+        name: otus-homework-5
+        ports:
+        - containerPort: 8000
+          name: http
+        livenessProbe:
+          tcpSocket:
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /health/
+            port: http
+            scheme: HTTP
+          
